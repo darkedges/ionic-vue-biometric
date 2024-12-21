@@ -22,7 +22,6 @@
 
 <script setup lang="ts">
 import { IonItem, IonLabel, IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
 import { useUserStore } from '@/stores/user.store'
 
 const store = useUserStore()

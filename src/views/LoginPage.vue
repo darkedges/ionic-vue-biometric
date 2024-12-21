@@ -26,17 +26,16 @@
 import router from '@/router';
 import { logInOutline } from 'ionicons/icons';
 import { IonButton, IonRow, IonCol, IonLabel, IonIcon, IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
 import { useUserStore } from '@/stores/user.store'
 import { useRoute } from 'vue-router'
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 const store = useUserStore()
 const route = useRoute()
 
 function cli() {
     store.isVerified = true
-    let r = route.query.returnTo
+    const r = route.query.returnTo
     router.push({ path: r, replace: true })
 }
 
@@ -51,7 +50,7 @@ onMounted(() => {
         })
             .then(() => {
                 store.isVerified = true
-                let r = route.query.returnTo
+                const r = route.query.returnTo
                 router.push({ path: r, replace: true })
             })
             .catch(() => { alert(false) });
