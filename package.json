@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "6.2.0",
+    "@commitlint/config-conventional": "^19.6.0",
     "@types/lodash": "^4.17.13",
     "@vitejs/plugin-legacy": "^5.0.0",
     "@vitejs/plugin-vue": "^4.0.0",

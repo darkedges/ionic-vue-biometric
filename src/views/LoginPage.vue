@@ -23,39 +23,42 @@
 </template>
 
 <script setup lang="ts">
-import router from '@/router';
+import { useRouter, useRoute } from 'vue-router'
 import { logInOutline } from 'ionicons/icons';
 import { IonButton, IonRow, IonCol, IonLabel, IonIcon, IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import { useUserStore } from '@/stores/user.store'
-import { useRoute } from 'vue-router'
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 import { onMounted } from 'vue'
-const store = useUserStore()
+import { useUserStore } from '@/stores/user.store'
+const router = useRouter()
 const route = useRoute()
+const userStore = useUserStore();
 
 function cli() {
-    store.isVerified = true
-    const r = route.query.returnTo
-    router.push({ path: r, replace: true })
+    // userStore.isVerified = true
+    // const r = route.query.returnTo
+    // router.push({ path: r, replace: true })
 }
 
 onMounted(() => {
-    try {
-        FingerprintAIO.show({
-            reason: "For easy log in",
-            title: "Flybuys",
-            subtitle: "Biometric sign in for Flybuys",
-            description: "To continue, please provide your biometric credentials.",
-            useFallback: true
+    userStore.inBiometricPrompt = true
+    FingerprintAIO.show({
+        title: "Flybuys",
+        subtitle: "Biometric sign in for Flybuys",
+        description: "To continue, please provide your biometric credentials."
+    })
+        .then(() => {
+            alert('SUCCESS')
+            userStore.isVerified = true
+            userStore.inBiometricPrompt = false
+            const r = route.query.returnTo
+            router.push({ path: r, replace: true })
         })
-            .then(() => {
-                store.isVerified = true
-                const r = route.query.returnTo
-                router.push({ path: r, replace: true })
-            })
-            .catch(() => { alert(false) });
-    } catch (e) {
-        alert("l3")
-    }
+        .catch(() => {
+            alert('CANCEL')
+            userStore.isVerified = false
+            userStore.inBiometricPrompt = false
+            const r = route.query.returnTo
+            router.push({ path: r, replace: true })
+        });
 })
 </script>
