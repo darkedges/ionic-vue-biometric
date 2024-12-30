@@ -11,19 +11,28 @@
           <ion-title size="large">Tab 1</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-item>
-        <ion-label>
-          isVerified: {{ store.isVerified }}</br>
-          inBiometricPrompt: {{ store.inBiometricPrompt }}
-        </ion-label>
-      </ion-item>
+      <ion-list :inset="true">
+        <ion-item>
+          <ion-icon :color="userStore.isVerified ? 'success' : 'danger'" slot="start"
+            :icon="icon[userStore.isVerified ? 'checkmarkCircleOutline' : 'closeCircleOutline']"></ion-icon>
+          <ion-label>isVerified</ion-label>
+          <ion-note slot="end">{{ userStore.isVerified }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-icon :color="userStore.inBiometricPrompt ? 'success' : 'danger'" slot="start"
+            :icon="icon[userStore.inBiometricPrompt ? 'checkmarkCircleOutline' : 'closeCircleOutline']"></ion-icon>
+          <ion-label>inBiometricPrompt</ion-label>
+          <ion-note slot="end">{{ userStore.inBiometricPrompt }}</ion-note>
+        </ion-item>
+      </ion-list>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonItem, IonLabel, IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { IonItem, IonLabel, IonList, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonNote } from '@ionic/vue';
+import * as icon from 'ionicons/icons';
 import { useUserStore } from '@/stores/user.store'
 
-const store = useUserStore()
+const userStore = useUserStore()
 </script>

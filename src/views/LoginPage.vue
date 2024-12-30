@@ -11,20 +11,26 @@
                     <ion-title size="large">Login</ion-title>
                 </ion-toolbar>
             </ion-header>
-            <ion-row class="ion-justify-content-center">
-                <ion-col size="sm">
-                    <ion-button @click="loginWithBiometrics">
+            <ion-list :inset="true">
+                <ion-item>
+                    <ion-button expand="block" @click="loginWithBiometrics">
                         <ion-icon aria-hidden="true" :icon="logInOutline" />
                         <ion-label>Login with Biometrics</ion-label>
                     </ion-button>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    isVerified: {{ userStore.isVerified }}</br>
-                    inBiometricPrompt: {{ userStore.inBiometricPrompt }}
-                </ion-col>
-            </ion-row>
+                </ion-item>
+                <ion-item>
+                    <ion-icon :color="userStore.isVerified ? 'success' : 'danger'" slot="start"
+                        :icon="icon[userStore.isVerified ? 'checkmarkCircleOutline' : 'closeCircleOutline']"></ion-icon>
+                    <ion-label>isVerified</ion-label>
+                    <ion-note slot="end">{{ userStore.isVerified }}</ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-icon :color="userStore.inBiometricPrompt ? 'success' : 'danger'" slot="start"
+                        :icon="icon[userStore.inBiometricPrompt ? 'checkmarkCircleOutline' : 'closeCircleOutline']"></ion-icon>
+                    <ion-label>inBiometricPrompt</ion-label>
+                    <ion-note slot="end">{{ userStore.inBiometricPrompt }}</ion-note>
+                </ion-item>
+            </ion-list>
         </ion-content>
     </ion-page>
 </template>
@@ -32,10 +38,11 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
 import { logInOutline } from 'ionicons/icons';
-import { IonButton, IonRow, IonCol, IonLabel, IonIcon, IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { IonList, IonButton, IonItem, IonNote, IonLabel, IonIcon, IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 import { NativeBiometric } from '@darkedges/capacitor-secure-storage';
 import { onMounted } from 'vue'
 import { useUserStore } from '@/stores/user.store'
+import * as icon from 'ionicons/icons';
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore();
