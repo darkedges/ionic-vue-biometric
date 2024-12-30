@@ -37,32 +37,15 @@ import './theme/variables.css';
 const pinia = createPinia()
 
 import { useUserStore } from '@/stores/user.store'
-import {
-  has
-} from 'lodash';
 
 const app = createApp(App)
   .use(IonicVue)
   .use(pinia)
   .use(router);
 
-const userStore = useUserStore();
-
-router.beforeEach(async (to, from, next) => {
-  if (has(to, 'meta.authenticate') && to.meta.authenticate === true) {
-    if (!userStore.isVerified) {
-      next({
-        name: 'Login',
-        query: {
-          returnTo: to.path
-        }
-      });
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
+router.beforeEach((to) => {
+  const userStore = useUserStore();
+  if (to.meta.authenticate && !userStore.isVerified) return '/login?returnTo=' + to.path
 })
 
 router.isReady().then(() => {
