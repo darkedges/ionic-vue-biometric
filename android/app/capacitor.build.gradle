@@ -13,9 +13,10 @@ dependencies {
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-keyboard')
     implementation project(':capacitor-status-bar')
+    implementation project(':darkedges-capacitor-secure-storage')
 
 }
-apply from: "../../node_modules/cordova-plugin-fingerprint-aio/src/android/build.gradle"
+apply from: "../../node_modules/.pnpm/cordova-plugin-fingerprint-aio@6.0.0/node_modules/cordova-plugin-fingerprint-aio/src/android/build.gradle"
 
 if (hasProperty('postBuildExtras')) {
   postBuildExtras()

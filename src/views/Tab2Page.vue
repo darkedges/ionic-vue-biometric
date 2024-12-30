@@ -13,7 +13,8 @@
       </ion-header>
       <ion-item>
         <ion-label>
-          isVerified: {{ store.isVerified }}
+          isVerified: {{ store.isVerified }}</br>
+          inBiometricPrompt: {{ store.inBiometricPrompt }}
         </ion-label>
       </ion-item>
     </ion-content>

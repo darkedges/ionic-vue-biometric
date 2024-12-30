@@ -43,24 +43,9 @@ const app = createApp(App)
   .use(pinia)
   .use(router);
 
-
 router.beforeEach((to) => {
   const userStore = useUserStore();
   if (to.meta.authenticate && !userStore.isVerified) return '/login?returnTo=' + to.path
-  // if (has(to, 'meta.authenticate') && to.meta.authenticate === true) {
-  //   if (!userStore.isVerified) {
-  //     next({
-  //       name: 'Login',
-  //       query: {
-  //         returnTo: to.path
-  //       }
-  //     });
-  //   } else {
-  //     next()
-  //   }
-  // } else {
-  //   next()
-  // }
 })
 
 router.isReady().then(() => {

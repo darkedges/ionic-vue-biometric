@@ -9,19 +9,18 @@ import { IonApp, IonRouterOutlet } from '@ionic/vue';
 import { App } from '@capacitor/app';
 import { useUserStore } from '@/stores/user.store'
 import router from '@/router';
-const store = useUserStore()
+import { useRoute } from 'vue-router';
+const userStore = useUserStore()
+const route = useRoute()
 
 App.addListener('pause', () => {
-  alert("store.inBiometricPrompt: " + store.inBiometricPrompt)
-  if (!store.inBiometricPrompt) {
-    alert("Not in Biometric Prompt")
-    store.isVerified = false
+  if (!userStore.inBiometricPrompt) {
+    userStore.isVerified = false;
   }
 })
-
 App.addListener('resume', () => {
-  alert("store.inBiometricPrompt: " + store.inBiometricPrompt + "\n" + "store.isVerified: " + store.isVerified)
-  router.go(0)
+  if (route.path !== '/login') {
+    router.push({ name: 'Login', query: { "returnTo": route.fullPath } })
+  }
 })
-
 </script>

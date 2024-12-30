@@ -13,11 +13,18 @@
             </ion-header>
             <ion-row class="ion-justify-content-center">
                 <ion-col size="sm">
-                    <ion-button @click="cli">
+                    <ion-button @click="loginWithBiometrics">
                         <ion-icon aria-hidden="true" :icon="logInOutline" />
-                        <ion-label>Login</ion-label>
+                        <ion-label>Login with Biometrics</ion-label>
                     </ion-button>
-                </ion-col></ion-row>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    isVerified: {{ userStore.isVerified }}</br>
+                    inBiometricPrompt: {{ userStore.inBiometricPrompt }}
+                </ion-col>
+            </ion-row>
         </ion-content>
     </ion-page>
 </template>
@@ -26,39 +33,34 @@
 import { useRouter, useRoute } from 'vue-router'
 import { logInOutline } from 'ionicons/icons';
 import { IonButton, IonRow, IonCol, IonLabel, IonIcon, IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
+import { NativeBiometric } from '@darkedges/capacitor-secure-storage';
 import { onMounted } from 'vue'
 import { useUserStore } from '@/stores/user.store'
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore();
 
-function cli() {
-    // userStore.isVerified = true
-    // const r = route.query.returnTo
-    // router.push({ path: r, replace: true })
-}
-
-onMounted(() => {
+function loginWithBiometrics() {
     userStore.inBiometricPrompt = true
-    FingerprintAIO.show({
+    NativeBiometric.verifyIdentity({
         title: "Flybuys",
         subtitle: "Biometric sign in for Flybuys",
-        description: "To continue, please provide your biometric credentials."
+        description: "To continue, please provide your biometric credentials.",
+        useFallback: true
     })
         .then(() => {
-            alert('SUCCESS')
             userStore.isVerified = true
             userStore.inBiometricPrompt = false
             const r = route.query.returnTo
             router.push({ path: r, replace: true })
         })
         .catch(() => {
-            alert('CANCEL')
             userStore.isVerified = false
             userStore.inBiometricPrompt = false
-            const r = route.query.returnTo
-            router.push({ path: r, replace: true })
         });
+}
+
+onMounted(() => {
+    loginWithBiometrics()
 })
 </script>
