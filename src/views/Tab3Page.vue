@@ -26,6 +26,7 @@
         </ion-item>
       </ion-list>
     </ion-content>
+  </ion-page>
 </template>
 
 <script setup lang="ts">

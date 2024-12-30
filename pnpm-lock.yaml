@@ -27,8 +27,8 @@ importers:
         specifier: 6.0.2
         version: 6.0.2(@capacitor/core@6.2.0)
       '@darkedges/capacitor-secure-storage':
-        specifier: file:../capacitor-secure-storage
-        version: file:../capacitor-secure-storage
+        specifier: 0.1.1
+        version: 0.1.1
       '@ionic/vue':
         specifier: ^8.0.0
         version: 8.4.1
@@ -718,8 +718,8 @@ packages:
   '@cypress/xvfb@1.2.4':
     resolution: {integrity: sha512-skbBzPggOVYCbnGgV+0dmBdW/s77ZkAOXIC1knS8NagwDjBrNC1LuXtQJeiN6l+m7lzmHtaoUw/ctJKdqkG57Q==}
 
-  '@darkedges/capacitor-secure-storage@file:../capacitor-secure-storage':
-    resolution: {directory: ../capacitor-secure-storage, type: directory}
+  '@darkedges/capacitor-secure-storage@0.1.1':
+    resolution: {integrity: sha512-iu1DyJeztjQ+YmNjLwim9uVUuM7sLs/ZHW79AXL4cfZA6dJKYTqZ8uKOWkSLZm+Xjv+eO948yF9ieqMyhdKW5A==}
     engines: {node: '>=16.15.1'}
 
   '@esbuild/aix-ppc64@0.20.2':
@@ -4150,7 +4150,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@darkedges/capacitor-secure-storage@file:../capacitor-secure-storage':
+  '@darkedges/capacitor-secure-storage@0.1.1':
     dependencies:
       '@capacitor/android': 6.2.0(@capacitor/core@6.2.0)
       '@capacitor/app': 6.0.2(@capacitor/core@6.2.0)
